@@ -1,0 +1,7 @@
+/node_modules/
+/Herramientas/
+.bash
+.bash_history
+.sql
+.vscode
+.sass-cache
