@@ -1,3 +1,7 @@
 RewriteEngine On
 
+# Si la ruta /phones no existe invoca product.php?phones
 RewriteRule ^phones$ product.php?phones=$1
+
+# Si la ruta /phones no existe invoca product.php?phones
+RewriteRule ^phones/$ product.php?phones=$1

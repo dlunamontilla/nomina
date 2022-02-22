@@ -1,6 +1,6 @@
 <?php
 
-// En este caso, se contruye un Array:
+// Esto es un array de objetos:
 $phones = [
     [
         "product_title" => "iPhone 7",
@@ -21,5 +21,9 @@ $phones = [
     ]
 ];
 
-header("content-type: application/json; charset=utf-8");
-echo json_encode($phones);
+if (isset($_GET['phones'])) {
+    header("content-type: application/json; charset=utf-8");
+
+    // Y se parsea aquí:
+    echo json_encode($phones);
+}
