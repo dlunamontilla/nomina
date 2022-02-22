@@ -1,0 +1,3 @@
+RewriteEngine On
+
+RewriteRule ^phones$ product.php?phones=$1
