@@ -1,7 +1,6 @@
 /node_modules/
-/Herramientas/
-.bash
-.bash_history
-.sql
-.vscode
-.sass-cache
+/public/build/
+
+.DS_Store
+
+Herramientas
