@@ -1,0 +1,21 @@
+main {
+    flex-grow: 1;
+}
+
+.container {
+    margin: 0 auto;
+    padding: 20px 0;
+    width: $width;
+    max-width: $max-width;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(white, 0.1);
+    
+    &__inner {
+
+    }
+}

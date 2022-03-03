@@ -1,5 +1,19 @@
 # Sistema contable
 
+# Instalación del proyecto.
+
+Debe ingresar al directorio `app` que se encuentra en el directorio raíz del proyecto y escribir la siguiente línea:
+
+```bash
+git clone https://github.com/dlunamontilla/DLTools.git
+```
+
+Si ya tiene configurado las llaves SSH con GitHub lo puede clonar escribiendo la siguiente línea:
+
+```bash
+git clone git@github.com:dlunamontilla/DLTools.git
+```
+
 ## Descripción de las entidades (tablas) de la base de datos
 
 <br>
