@@ -1,5 +1,7 @@
 <?php
 include __DIR__ . "/../server.php";
+
+include __DIR__ . "/../app/DLTools/DLRequest.php";
 ?>
 
 <!DOCTYPE html>
@@ -17,15 +19,6 @@ include __DIR__ . "/../server.php";
     <script defer src="./build/bundle.js"></script>
 </head>
 
-<body>
-    <h2><?= $info; ?></h2>
-
-    <h3>Luis Barreto</h3>
-    <hr>
-    <div class="luis">
-        <button>Luis Barreto</button>
-    </div>
-    <pre><?php $dl404->checked(); ?></pre>
-</body>
+<body></body>
 
 </html>

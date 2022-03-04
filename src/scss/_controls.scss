@@ -2,19 +2,36 @@
     padding: 20px;
 }
 
-button {
-    background-color: transparent;
+button,
+input {
     border: 1px solid rgba(white, 0.1);
     transition: 300ms ease;
-    color: white;
 
-    height: 40px;
+    height: 35px;
     padding: 0 10px;
     border-radius: 5px;
+    outline: medium none;
+}
+
+button {
+    background-color: transparent;
+    color: inherit;
     
     &:hover {
         background-color: rgba(white, 0.7);
         color: black;
         border: 1px solid rgba(white, 0.7);
+    }
+
+    &:active {
+        transition: none;
+        background-color: rgba(white, 0.6);
+    }
+}
+
+input {
+    
+    &:focus {
+        border: 1px solid rgba(4, 4, 54, 0.26);
     }
 }
