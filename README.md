@@ -1,18 +1,42 @@
 # Sistema contable
 
-# Instalación del proyecto.
+## Instalación del proyecto.
 
-Debe ingresar al directorio `app` que se encuentra en el directorio raíz del proyecto y escribir la siguiente línea:
-
-```bash
-git clone https://github.com/dlunamontilla/DLTools.git
-```
-
-Si ya tiene configurado las llaves SSH con GitHub lo puede clonar escribiendo la siguiente línea:
+Primero debe clonarse el proyecto:
 
 ```bash
-git clone git@github.com:dlunamontilla/DLTools.git
+git clone https://github.com/dlunamontilla/nomina.git
 ```
+
+Luego de eso, ingrese al directorio `nomina/`
+
+```bash
+cd nomina
+```
+
+Y desde allí solo tiene que instalar las dependencias con el siguiente comando:
+
+```bash
+npm install
+npm install --save rollup-plugin-scss@3 sass scss
+```
+
+Luego de eso, corra el proyecto con la siguiente línea:
+
+```bash
+npm run dev
+```
+
+Sin embargo, no corra el proyecto directamente con **NodeJS**, porque incluye _backend_. En su lugar, cree un acceso directo con el nombre `nomina` de la carpeta `public/` desde el servidor donde lo va a correr y luego, desde la barra de direcciones de su navegador escriba:
+
+```none
+http://localhost/nomina/
+```
+
+Lo que verá allí son formularios que no son parte del proyecto. Se utilizarán básicamente para probar el código.
+
+
+
 
 ## Descripción de las entidades (tablas) de la base de datos
 

@@ -21,6 +21,8 @@ En base a lo anterior, analice y responda:
 a. Identifique, describa y de ser necesario complete las etapas en el proceso de toma de deciciones del texto. Justifique bien su respuesta.
 
 
+
+
 b. Indique las alternativas de solución que tiene refiriendo los criterios establecidos. ¿Cuál es la alternativa que desde su óptica debe ser priorizada? Justifique su respuesta.
 
 c. ¿Qué tipo de decisión se está tomando? ¿En qué nivel la ubica? Justifique su respuesta.

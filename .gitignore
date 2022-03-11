@@ -4,4 +4,5 @@
 .DS_Store
 
 Herramientas
-app/DLTools
+.backup
+app/DLTools.backup/

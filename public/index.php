@@ -1,7 +1,5 @@
 <?php
 include __DIR__ . "/../server.php";
-
-include __DIR__ . "/../app/DLTools/DLRequest.php";
 ?>
 
 <!DOCTYPE html>

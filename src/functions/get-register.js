@@ -2,6 +2,8 @@
  * 
  * @param {HTMLFormElement} form Formulario HTML
  * 
+ * @param { boolean } jsonFormat
+ * 
  * Guardar datos del formulario al servidor.
  */
 const saveFormDataToServer = async (form, jsonFormat = false) => {
@@ -9,7 +11,7 @@ const saveFormDataToServer = async (form, jsonFormat = false) => {
     const formData = new FormData(form);
 
     const methods = {
-        get: async function() {
+        get: async function () {
             /** @type { Array<string> } */
             const fields = [];
             formData.forEach((value, index) => {
@@ -19,7 +21,7 @@ const saveFormDataToServer = async (form, jsonFormat = false) => {
             /** @type { string } */
             const queryString = `?${fields.join("&")}`;
 
-            const response = await fetch(`${action}${queryString}`, {method});
+            const response = await fetch(`${action}${queryString}`, { method });
             if (!response.ok) console.error(response.status);
 
             if (jsonFormat) {
@@ -28,10 +30,11 @@ const saveFormDataToServer = async (form, jsonFormat = false) => {
             }
 
             const data = await response.text();
+            // form.reset();
             return data;
         },
 
-        post: async function() {
+        post: async function () {
             const response = await fetch(action, {
                 method,
                 body: formData
@@ -45,6 +48,7 @@ const saveFormDataToServer = async (form, jsonFormat = false) => {
             }
 
             const data = await response.text();
+            // form.reset();
             return data;
         }
     };
