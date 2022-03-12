@@ -1,4 +1,6 @@
 import App from './App.svelte';
+import {} from "./functions/buttons";
+
 import "./scss/style.scss";
 
 const app = new App({

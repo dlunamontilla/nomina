@@ -12,9 +12,9 @@ include __DIR__ . "/../server.php";
     <title>Nómina</title>
 
     <link rel="icon" type="image/png" href="favicon.png" />
-    <link rel="stylesheet" href="./build/bundle.css" />
+    <link rel="stylesheet" href="./build/bundle.css?v1" />
 
-    <script defer src="./build/bundle.js"></script>
+    <script defer src="./build/bundle.js?v1"></script>
 </head>
 
 <body></body>

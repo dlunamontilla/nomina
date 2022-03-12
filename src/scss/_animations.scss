@@ -1,0 +1,11 @@
+@keyframes expanded {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        background-color: rgba(white, 0.5);
+        opacity: 0;
+        transform: scale(23);
+    }
+}

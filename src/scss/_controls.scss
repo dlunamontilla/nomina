@@ -1,10 +1,5 @@
-.luis {
-    padding: 20px;
-}
-
 button,
 input {
-    border: 1px solid rgba(white, 0.1);
     transition: 300ms ease;
 
     height: 35px;
@@ -16,22 +11,153 @@ input {
 button {
     background-color: transparent;
     color: inherit;
-    
-    &:hover {
-        background-color: rgba(white, 0.7);
-        color: black;
-        border: 1px solid rgba(white, 0.7);
-    }
-
-    &:active {
-        transition: none;
-        background-color: rgba(white, 0.6);
-    }
 }
 
 input {
     
     &:focus {
         border: 1px solid rgba(4, 4, 54, 0.26);
+    }
+}
+
+.button {
+    --background-color: #{$background};
+    --color: #{$text-color};
+    --height: 35px;
+    --radius: calc(var(--height) / 2);
+
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    min-height: 35px;
+    align-items: center;
+    padding: 0 10px;
+    background-color: var(--background-color);
+    color: var(--color);
+    border-radius: var(--radius);
+    transition: 300ms ease;
+    outline: medium none;
+    border: 1px solid transparent;
+    position: relative;
+    overflow: hidden;
+
+    font: {
+        size: 0.95rem;
+        weight: 600;
+    }
+
+    &::before {
+        content: "";
+        --size: 10%;
+
+        filter: blur(2px);
+        display: block;
+        width: var(--size);
+        height: auto;
+        padding-top: 10%;
+        pointer-events: none;
+        border-radius: 50%;
+
+        position: absolute;
+        margin: auto;
+
+        left: calc(var(--x) - var(--size) / 2);
+        top: calc(var(--y) - var(--size) / 2);
+        right: auto;
+        bottom: auto;
+        animation: var(--animation);
+        
+        z-index: 0;
+    }
+
+    &:focus {
+        outline: 1px solid transparent;
+    }
+
+    &--primary {
+        $primary-color: #002077;
+        --background-color: #{rgba($primary-color, 0.7)};
+
+        &:hover {
+            --background-color: #022586;
+        }
+
+        &:active {
+            --background-color: #002077;
+            transition: none;
+        }
+
+        &:focus {
+            border: 1px solid #0f49e9;
+        }
+    }
+
+    &--success {
+        $success-color: #003000;
+        --background-color: #{$success-color};
+
+        &:hover {
+            --background-color: #003500;
+        }
+
+        &:active {
+            --background-color: #013a01;
+            transition: none;
+        }
+
+        &:focus {
+            border: 1px solid #1e771e;
+        }
+    }
+
+    &--danger {
+        $danger-color: #963d01;
+        --background-color: #{$danger-color};
+
+        &:hover {
+            --background-color: #b64901;
+        }
+
+        &:active {
+            --background-color: #a34100;
+            transition: none;
+        }
+
+        &:focus {
+            border: 1px solid #ec5f00;
+        }
+    }
+
+    &--error {
+        $error-color: #700000;
+        --background-color: #{$error-color};
+
+        &:hover {
+            --background-color: #910303;
+        }
+
+        &:active {
+            --background-color: #700000;
+            transition: none;
+        }
+
+        &:focus {
+            border: 1px solid #b40202;
+        }
+    }
+
+    &--menu {
+        --radius: 5px;
+
+        $transparent-color: transparent;
+        --background-color: #{$transparent-color};
+
+        &:hover {
+            --background-color: rgba(orange, 0.1);
+        }
+
+        &:focus {
+            outline: 1px solid #fffefe1c;
+        }
     }
 }

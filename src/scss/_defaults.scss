@@ -6,6 +6,32 @@
         size: 15px;
         family: "Open Sans", sans-serif, arial;
     }
+
+    line-height: 1.5;
+
+    
+    &::before,
+    &::after {
+        content: "";
+        display: block;
+        position: fixed;
+        margin: auto;
+        left: 0; right: 0;
+        top: 0; bottom: 0;
+        
+        z-index: 0;
+    }
+    
+    &::before {
+        background-image: url("../images/photos/hangers-blur.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        filter: blur(10px);
+    }
+    
+    &::after {
+        background-color: rgba(darken($background, 3), 0.7);
+    }
 }
 
 * {
@@ -20,6 +46,7 @@
 body {
     margin: 0;
     height: 100vh;
+    position: relative;
 
     display: flex;
     flex-direction: column;
@@ -29,6 +56,8 @@ body {
     & > * {
         width: 100%;
     }
+
+    z-index: 1;
 }
 
 hr {
@@ -51,8 +80,6 @@ a {
 }
 
 header {
-    min-height: 40px;
-
     &:not([class]) {
         background-color: rgba(white, 0.2);
     }
@@ -62,6 +89,14 @@ footer {
     min-height: 60px;
 
     &:not([class]) {
-        background-color: black;
+        background-color: rgb(7, 22, 73);
     }
+}
+
+p {
+    line-height: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
 }

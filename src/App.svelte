@@ -1,8 +1,8 @@
 <script>
-    import { get } from "svelte/store";
     import { saveFormDataToServer } from "./functions/get-register";
-
-    export let name;
+    import Logo from "./components/icons/Logo.svelte";
+    import Menu from "./components/Menu.svelte";
+    import Cards from "./components/cards/cards.svelte";
 
     /** @type { Promise<any> } */
     let datos;
@@ -26,46 +26,50 @@
     $: requestData = getData(`./api/?${path}`);
 </script>
 
-<header>{name}</header>
+
+<header class="header">
+    <nav class="navigation">
+        <Logo />
+        <Menu />
+    </nav>
+
+    <div class="banner">
+        <div class="banner__inner">
+            Algún banner que pronto se colocará
+        </div>
+    </div>
+</header>
 
 <main id="wrapper">
-    <h3>Un pequeño experimento</h3>
-    <hr />
+    
+    <div class="container">
+        <section class="container__item">
 
-    <form
-        action="./api/"
-        method="post"
-        on:submit={enviarFormulario}
-        enctype="multipart/form-data"
-    >
-        <input type="text" name="name" id="name" value="Ciencia" />
-        <input type="text" name="probar" id="probar" value="Probar" />
-        <input type="text" name="gipsemar" id="gipsemar" />
-        <button type="submit">Realizar una prueba</button>
-    </form>
+            <div class="container__inner">
+                <h2>Recientes</h2>
+                <hr>
+            
+                <Cards />
+            </div>
 
-    <h4>Resultados de la búsqueda</h4>
-    <hr />
+        </section>
 
-    <div class="busqueda">
-        {#await data}
-            Ciencia de datos...
-        {:then value}
-            <pre>{value ? value : ""}</pre>
-        {/await}
+        <section class="container__item">
+            <article class="container__inner">
+                <h2>Los más buscados</h2>
+                <hr>
+        
+                <Cards />
+            </article>
+        </section>
+
+        <section class="container__item">
+            <article class="container__inner">
+                <h2>Nuestros vendedores</h2>
+            </article>
+        </section>
     </div>
 
-    <h3>Rutas de prueba</h3>
-    <hr />
-
-    <input type="text" name="resultados" id="resultados" bind:value={path} />
-    <div class="busqueda">
-        {#await requestData}
-            Esperando datos...
-        {:then datos}
-            <pre>{datos}</pre>
-        {/await}
-    </div>
 </main>
 
 <footer class="footer">
