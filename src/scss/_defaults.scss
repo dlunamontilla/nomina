@@ -100,3 +100,20 @@ p {
 h1, h2, h3, h4, h5, h6 {
     margin: 0;
 }
+
+svg {
+    display: block;
+
+    --size: 20px;
+    --color: inherit;
+
+    width: var(--size);
+    height: var(--size);
+
+    margin-right: 5px;
+    pointer-events: none;
+    
+    path {
+        fill: var(--color);
+    }
+}

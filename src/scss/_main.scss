@@ -94,6 +94,19 @@ pre {
 }
 
 .logo {
-    display: flex;
-    align-items: center;
+    position: relative;
+
+    &__enlace {
+        display: flex;
+        align-items: center;
+
+        &:hover {
+            opacity: 0.7;
+        }
+
+        &:active {
+            transition: none;
+            opacity: 1;
+        }
+    }
 }

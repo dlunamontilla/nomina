@@ -3,6 +3,8 @@
 </script>
 
 <section class="logo">
-    <Image />
-    <h3>Su empresa</h3>
+    <a href="./#" class="logo__enlace">
+        <Image />
+        <h3>Su empresa</h3>
+    </a>
 </section>

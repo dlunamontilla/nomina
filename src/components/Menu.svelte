@@ -3,5 +3,5 @@
 </script>
 
 <button class="button button--menu">
-    <Bars /> Menú
+    <Bars /> Secciones
 </button>

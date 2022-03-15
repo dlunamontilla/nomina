@@ -1,5 +1,5 @@
 <script>
-    import Info from "../icons/Info.svelte";
+    import CartLite from "../icons/CartLite.svelte";
 
     let products = [
         {
@@ -61,7 +61,7 @@
 
                 <section class="card__details">
                     <button class="button button--primary">
-                        <Info />
+                        <CartLite />
                         Realizar pedido
                     </button>
                 </section>
