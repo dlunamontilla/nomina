@@ -17,14 +17,23 @@ class DLRequest {
     private string $method = "";
 
     /**
-     * @var object
+     * @var array
      */
-    private object $values;
+    private array $values;
 
     /**
      * @var array $request Métodos $_GET o $_POST
      */
     private array $request;
+
+    /**
+     * @var bool Se almacena la validación de longitudes de la petición
+     * hecha por el usuario contra la que se desea. Si la longitud de $_GET
+     * o $_POST coinciden con la que se desea, entonces, se considera 
+     * parcialmente válida la petición.
+     */
+
+    private $is_valid_length;
 
     public function __construct() {
         $this->method = $_SERVER['REQUEST_METHOD'];
@@ -33,7 +42,7 @@ class DLRequest {
             ? $_POST
             : $_GET;
 
-        $this->values = (object) [];
+        $this->values = [];
     }
 
     /**
@@ -46,6 +55,7 @@ class DLRequest {
      * acción solicitada por el usuario.
      */
     private function validate(array $requests, bool $distribute = false): bool {
+        $this->is_valid_length = count($requests) === count($this->request);
 
         /**
          * @var array Capturar los valores de las peticiones ya
@@ -74,22 +84,27 @@ class DLRequest {
             return false;
         }
 
-        if (!$distribute) foreach ($requests as $key => $require) {
+        if (!$distribute) {
 
-            if (!array_key_exists($key, $this->request)) return false;
+            if (!($this->is_valid_length)) return false;
 
-            if ($require) {
-                if (empty($this->request[$key])) return false;
+            foreach ($requests as $key => $require) {
+    
+                if (!array_key_exists($key, $this->request)) return false;
+    
+                if ($require) {
+                    if (empty($this->request[$key])) return false;
+                }
+    
+                $value = $this->request[$key];
+    
+                if (is_numeric($value)) {
+                    $values[$key] = (double) $value;
+                    continue;
+                }
+    
+                $values[$key] = (string) $value;
             }
-
-            $value = $this->request[$key];
-
-            if (is_numeric($value)) {
-                $values[$key] = (double) $value;
-                continue;
-            }
-
-            $values[$key] = (string) $value;
         }
 
         /**
@@ -108,7 +123,7 @@ class DLRequest {
             return $count === 1;
         }
 
-        $this->values = (object) $values;
+        $this->values = $values;
 
         return true;
     }
@@ -164,29 +179,45 @@ class DLRequest {
         return $this->method;
     }
 
-    public function getValues(): object {
-        return $this->values;
+    /**
+     * Permite obtener dinámicamente valores del campo del formulario.
+     * 
+     * @param ?string $prefix Permite agregar un prefijo a los campos.
+     * 
+     * @param array $fields Es un array de campos que deben ser tomados en 
+     * cuenta para la obtención de valores del formulario.
+     * 
+     * @return object Devuelve un array de valores.
+     */
+    public function getValues(?string $prefix = null, array $fields = []): array {
+        $fields_prefix = [];
+
+
+        $this->values = $_REQUEST;
+
+        if ($prefix) {
+            if (!count($fields) > 0) foreach ($this->values as $key => $value) {
+                $fields_prefix[$prefix . $key] = $value;
+            }
+
+            if (count($fields) > 0) foreach ($fields as $key) {
+                if (array_key_exists($key, $this->values)) {
+                    $fields_prefix["$prefix$key"] = $this->values[$key];
+                }
+            }
+
+            return $fields_prefix;
+        }
+
+        
+        if (count($fields) > 0) foreach ($fields as $value) {
+            if (array_key_exists($value, $this->values)) {
+                $fields_prefix["$value"] = $this->values[$value];
+            }
+        }
+        
+        if (!count($fields) > 0) $fields_prefix = $this->values;
+        
+        return $fields_prefix;
     }
 }
-
-/** @var \DLRequest */
-$request = new DLRequest;
-
-$form = [
-    "name" => true,
-    "probar" => true,
-    "gipsemar" => false
-];
-
-if ($request->post($form)) {
-    echo json_encode($request->getValues());
-    print_r($request->getValues());
-}
-
-if ($request->get($form, true)) {
-    // echo json_encode($request->getValues());
-}
-
-// echo json_encode($request->getValues($form));
-
-// Comprobar los tipos de datos:

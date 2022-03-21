@@ -1,6 +1,4 @@
 <script>
-    import { saveFormDataToServer } from "./functions/get-register";
-
     // Layers
     import Header from "./components/Header.svelte";
     import Content from "./components/Content.svelte";
@@ -8,11 +6,6 @@
 
     /** @type { Promise<any> } */
     let datos;
-
-    async function enviarFormulario(e) {
-        e.preventDefault();
-        datos = await saveFormDataToServer(this, false);
-    }
 
     let data = datos;
     $: data = datos;

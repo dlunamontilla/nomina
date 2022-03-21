@@ -5,7 +5,7 @@ input {
     height: 35px;
     padding: 0 10px;
     border-radius: 5px;
-    outline: medium none;
+    outline: 1px solid transparent;
 }
 
 button {
@@ -14,9 +14,16 @@ button {
 }
 
 input {
-    
+    border: 1px solid rgba(white, 0.3);
+    font: inherit;
+    color: inherit;
+
+    --background: #{rgba(black, 0.3)};
+    background-color: var(--background);
+
     &:focus {
-        border: 1px solid rgba(4, 4, 54, 0.26);
+        outline: 1px solid rgba(4, 4, 54, 0.26);
+        --background: transparent;
     }
 }
 

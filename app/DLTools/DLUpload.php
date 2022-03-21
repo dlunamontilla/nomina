@@ -2,7 +2,7 @@
 
 /**
  * 
- * @package DLSubir
+ * @package DLUpload
  * @author David E Luna M <davidlunamontilla@gmail.com>
  * @version 1.0.0
  * @license MIT
@@ -15,7 +15,7 @@
  * 
  */
 
-class DLSubir {
+class DLUpload {
     # PROPIEDADES PROTEGIDAS:
     protected $type = [];
     protected $ruta;

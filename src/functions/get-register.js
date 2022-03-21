@@ -21,7 +21,7 @@ const saveFormDataToServer = async (form, jsonFormat = false) => {
             /** @type { string } */
             const queryString = `?${fields.join("&")}`;
 
-            const response = await fetch(`${action}${queryString}`, { method });
+            const response = await fetch(`${action}${queryString}`, { method, mode: 'cors' });
             if (!response.ok) console.error(response.status);
 
             if (jsonFormat) {
@@ -37,7 +37,9 @@ const saveFormDataToServer = async (form, jsonFormat = false) => {
         post: async function () {
             const response = await fetch(action, {
                 method,
-                body: formData
+                body: formData,
+                credentials: 'same-origin',
+                mode: 'same-origin'
             });
 
             if (!response.ok) console.error(response.status);
@@ -49,6 +51,7 @@ const saveFormDataToServer = async (form, jsonFormat = false) => {
 
             const data = await response.text();
             // form.reset();
+            
             return data;
         }
     };
@@ -59,6 +62,18 @@ const saveFormDataToServer = async (form, jsonFormat = false) => {
     }
 }
 
+/**
+ * 
+ * @param { string } path Ruta del servidor
+ * @returns { Promise<any> }
+ */
+async function getToken(path) {
+    const response = await fetch(path);
+    const data = await response.json();
+    return data;
+}
+
 export {
-    saveFormDataToServer
+    saveFormDataToServer,
+    getToken
 };

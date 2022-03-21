@@ -15,6 +15,7 @@ ini_set('display_startup_errors', '1');
  */
 
 include __DIR__ . "/DLConfig.php";
-include __DIR__ . "/DLSubir.php";
 include __DIR__ . "/DLProtocol.php";
-include __DIR__ . "/Request.php";
+include __DIR__ . "/DLRequest.php";
+include __DIR__ . "/DLSessions.php";
+include __DIR__ . "/DLUser.php";
