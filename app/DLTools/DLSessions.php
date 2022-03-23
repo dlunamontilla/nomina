@@ -45,9 +45,17 @@ class DLSessions {
      */
     private $method;
 
-    public function __construct() {
-        session_start();
+    /**
+     * @var string Almacenar la fecha en la que se hizo la petición
+     */
+    private $petition_date;
 
+    /**
+     * @var string Almacenar la hora de la petición
+     */
+    private $petition_hour;
+
+    public function __construct() {
         $this->host = (string) $this->server("SERVER_NAME");
         preg_match("/$this->host/", $this->getReferer(), $this->found_referer);
         $this->found_referer = json_encode($this->found_referer);
@@ -57,6 +65,9 @@ class DLSessions {
         $this->pathfile = $this->path . "/error_log.log";
 
         $this->method = $this->server('REQUEST_METHOD', true);
+
+        $this->petition_date = date("D, d/M/Y");
+        $this->petition_hour = date("H:i:s a");
     }
 
     /**
@@ -200,7 +211,7 @@ class DLSessions {
         preg_match("/$this->host/", $this->getReferer(), $this->found_referer);
 
         if (!$this->found_referer) {
-            $this->error_log("Se intentó realizar una petición desde " . $this->getReferer() . " al servidor $this->host\n");
+            $this->error_log("Se intentó realizar una petición desde " . $this->getReferer() . " al servidor $this->host el día $this->petition_date a las $this->petition_hour\n");
             return false;
         }
 
@@ -222,7 +233,7 @@ class DLSessions {
         }
 
         if (!$this->found_origin) {
-            $this->error_log("Se intentó realizar una petición con el método $this->method desde " . $this->getHttpOrigin() . " al servidor $this->host\n");
+            $this->error_log("Se intentó realizar una petición con el método $this->method desde " . $this->getHttpOrigin() . " al servidor $this->host $this->host el día $this->petition_date a las $this->petition_hour\n");
             return false;
         }
 

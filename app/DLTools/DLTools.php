@@ -2,6 +2,8 @@
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 
+session_start();
+
 /**
  * @package DLTools
  * @version 2.0.0
@@ -15,6 +17,7 @@ ini_set('display_startup_errors', '1');
  */
 
 include __DIR__ . "/DLConfig.php";
+include __DIR__ . "/DLCookies.php";
 include __DIR__ . "/DLProtocol.php";
 include __DIR__ . "/DLRequest.php";
 include __DIR__ . "/DLSessions.php";

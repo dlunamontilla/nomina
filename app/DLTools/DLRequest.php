@@ -35,6 +35,13 @@ class DLRequest {
 
     private $is_valid_length;
 
+    /**
+     * @var string Dominio donde se probarán las peticiones. El objetivo es
+     * enviar cookies sin necesidad de https en los dominios que se marcaron
+     * como de prueba.
+     */
+    private $domain_test;
+
     public function __construct() {
         $this->method = $_SERVER['REQUEST_METHOD'];
 
@@ -43,6 +50,8 @@ class DLRequest {
             : $_GET;
 
         $this->values = [];
+
+        $this->domain_test = $_SERVER['SERVER_NAME'];
     }
 
     /**
@@ -219,5 +228,22 @@ class DLRequest {
         if (!count($fields) > 0) $fields_prefix = $this->values;
         
         return $fields_prefix;
+    }
+
+    /**
+     * @param array $domains Array de dominios que se considerarán de prueba
+     * para desactivar el modo seguro de autenticación mediante cookies. No se
+     * recomienda utilizar los dominios que se encuentran en Internet como 
+     * dominio de pruebas.
+     * 
+     * @return bool
+     */
+    public function domainTest(array $domains): bool {
+
+        foreach($domains as $domain) {
+            if ($this->domain_test === $domain) return true;
+        }
+
+        return false;
     }
 }

@@ -49,18 +49,23 @@ class DLUser extends DLConfig {
     }
 
     /**
-     * @param array $fields Campos del formulario para introducir las credenciales
-     * @param ?string $passwordField Campo de contraseña. El valor por defecto es
-     * :password. Si desea utilizar otro nombre de campo puede optar por colocarle un
-     * nombre.
-     * 
      * Por ahora, en esta versión no se pueden cambiar los campos, por lo que deberían utilizar
      * los campos :username y :password. 
      * 
-     * @return mixed;
+     * @param ?string $token El nombre del token donde se almacenó el hash
+     * que permite comprobar que efectivamente el acceso es legítimo. El valor
+     * por defecto es «token», pero puede tener otro valor.
+     * 
+     * @return bool;
      */
-    public function createUserSession(): mixed {
-        // $this->request->values[$passwordField] = $this->request->values[$passwordField];
+    public function createUserSession(?string $token = "token"): bool {
+        /** @var \DLSession */
+        $hash = new DLSessions;
+
+        /** @var bool ¿Es un token válido para continuar? */
+        $is_valid_token = $hash->isValidToken($token);
+
+        if (!$is_valid_token) return $is_valid_token;
 
         /**
          * @var object Array asociativo con las credenciales de usuario.
@@ -82,11 +87,37 @@ class DLUser extends DLConfig {
         $this->hashPassword = $password;
         $is_valid_password = $this->verifyPassword($values->password);
 
+        /**
+         * @var bool Almacena información sobre si se creo o no una cookie.
+         */
+        $A0110 = FALSE;
+
+        /** @var bool Almacena información sobre si se creó o no una cookie*/
+        $B0110 = FALSE;
+
         if ($is_valid_password) {
-            echo "El usuario tiene una contraseña válida " . json_encode($_SERVER['PHP_AUTH_USER']);
-            setcookie($name = "dfad");
+            $session = new DLSessions;
+            $cookies = new DLCookies;
+
+            $cookies->setConfig(["httponly" => true]);
+
+            if ($this->request->domainTest(["lunamontilla.net","localhost"])) {
+                $cookies->setConfig([
+                    "secure" => false
+                ]);
+            }
+
+            $session->set("auth");
+            $auth = $session->get("auth");
+            $this->setHash($auth);
+
+            $A0110 = $cookies->set("A0110", $this->hashPassword);
+            $B0110 = $cookies->set("B0110", $this->hashPassword);
+
+            echo "\n" . json_encode($A0110) . " " . json_encode($B0110);
         }
-        return "";
+
+        return $A0110 && $B0110;
     }
 
     public function update(): bool {
