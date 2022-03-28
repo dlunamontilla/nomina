@@ -10,6 +10,10 @@
 
     getHash();
 
+    setInterval(() => {
+        getHash()
+    }, 10 * 1000);
+
     $: csrf = csrf;
 
     async function handleForm(e) {
@@ -83,8 +87,8 @@
                 <form action="api/" method="post" on:submit={handleForm}>
                     <input type="hidden" name="token" value="{csrf}" />
 
-                    <input type="text" name="username" id="username" placeholder="Su usuario" />
-                    <input type="password" name="password" id="password" placeholder="Su contraseña" />
+                    <input type="text" name="username" id="username" placeholder="Su usuario" value="dlunamontilla" />
+                    <input type="password" name="password" id="password" placeholder="Su contraseña" value="entorno2" />
                     <button type="submit" class="button">
                         Crear sesión de usuario
                     </button>

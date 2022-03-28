@@ -9,20 +9,11 @@ header('Access-Control-Allow-Headers: Authorization');
 
 include __DIR__ . "/../../app/DLTools/DLTools.php";
 
-$config = new DLConfig;
 $user = new DLUser;
 
 
 header("content-type: application/json; charset=utf-8");
 
-$pdo = $config->getPDO();
-
-$datos = $pdo->query("DESCRIBE dl_user;");
-
-// echo json_encode($datos->fetchAll(PDO::FETCH_ASSOC));
-
-// Obtener toquen
-$token = new DLSessions;
 $request = new DLRequest;
 
 $forms = [
@@ -33,29 +24,14 @@ $forms = [
 ];
 
 if ($request->module("tt")) {
-    $token->set("token", true);
+    $token = new DLSessions;
+    $token->set("token", false);
     echo json_encode([$token->get("token")]);
     exit;
 }
 
 
 $todos = [];
-
-if ($request->post($forms) && $token->isValidToken("token")) {
-    $todos = [
-        "values" => $request->getValues()
-    ];
-
-    $todos["DATABASE"] = $datos->fetchAll(PDO::FETCH_ASSOC);
-}
-
-if ($request->get($forms) && $token->isValidToken("token")) {
-    $todos = [
-        "values" => $request->getValues(null, ["name", "lastname", "year", "token"])
-    ];
-
-    $todos["DATABASE"] = $datos->fetchAll(PDO::FETCH_ASSOC);
-}
 
 
 $crearSesion = [
@@ -64,10 +40,10 @@ $crearSesion = [
     "token" => true
 ];
 
-if ($request->post($crearSesion) && $token->isValidToken("token")) {
+if ($request->post($crearSesion)) {
     $user->createUserSession();
 }
 
 echo json_encode($todos);
 
-$user->update();
+$user->updatePassword();
