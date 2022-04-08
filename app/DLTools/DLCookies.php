@@ -31,6 +31,7 @@ class DLCookies {
 
     /**
      * @param array $config Opciones de creación de una cookie.
+     * @return void
      */
     public function setConfig(array $config): void {
         
@@ -43,8 +44,26 @@ class DLCookies {
         }
     }
 
+    /**
+     * @param string $name Nombre de la cookie que va a crear.
+     * @param string $value Valor de la cookie.
+     * 
+     * @return bool Si la cookie fue creada con éxito devuelve «true», de lo
+     * contrario, devolverá «false»
+     */
     public function set(string $name, string $value): bool {
         return setcookie($name, $value, $this->config);
+    }
+
+    /**
+     * @param string $key Nombre de la cookie.
+     * @return string Valor devuelto de la cookie. Si la cookie no existe
+     * devolverá una cadena vacía.
+     */
+    public function get(string $key): string {
+        return array_key_exists($key, $_COOKIE)
+            ? $_COOKIE[$key]
+            : "";
     }
 }
 

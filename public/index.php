@@ -1,5 +1,6 @@
 <?php
 include __DIR__ . "/../server.php";
+
 ?>
 
 <!DOCTYPE html>

@@ -57,6 +57,7 @@ class DLSessions {
 
     public function __construct() {
         $this->host = (string) $this->server("SERVER_NAME");
+
         preg_match("/$this->host/", $this->getReferer(), $this->found_referer);
         $this->found_referer = json_encode($this->found_referer);
 
@@ -95,8 +96,10 @@ class DLSessions {
     /**
      * @param string $key Pasar como argumento cualquier índice de $_SERVER.
      * @param bool $string Se indica que devuelva una cadena vacía con el valor
-     * establecido a «true» en el caso de que el índice no se encuentre en 
-     * $_SERVER. El valor por defecto es false.
+     * establecido a «true» en el caso de que el índice no se encuentre en la
+     * súper variable $_SERVER. El valor por defecto es false. El resultado es
+     * un array asociativo en el caso de que el índice no exista.
+     * 
      * 
      * @return string | array
      */
@@ -171,7 +174,7 @@ class DLSessions {
 
         $is_valid = $this->method === "POST"
             ? hash_equals($this->get($key), $_POST[$key])
-            : hash_equals($this->get($key), $_GET[$key]);
+            : hash_equals($this->get($key), $_REQUEST[$key]);
 
         if (array_key_exists($key, $_POST)) {
             if ($extra) {

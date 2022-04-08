@@ -59,7 +59,7 @@ class DLUser extends DLConfig {
      * @return bool;
      */
     public function createUserSession(?string $token = "token"): bool {
-        /** @var \DLSession */
+        /** @var \DLSessions */
         $hash = new DLSessions;
 
         /** @var bool ¿Es un token válido para continuar? */
@@ -95,17 +95,23 @@ class DLUser extends DLConfig {
         /** @var bool Almacena información sobre si se creó o no una cookie*/
         $B0110 = FALSE;
 
+        
+        /**
+         * @var \DLCookies
+         */
+        $cookies = new DLCookies;
+
+        if ($this->request->domainTest(["lunamontilla.net","localhost"])) {
+            $cookies->setConfig([
+                "secure" => false
+            ]);
+        }
+
         if ($is_valid_password) {
             $session = new DLSessions;
-            $cookies = new DLCookies;
 
             $cookies->setConfig(["httponly" => true]);
 
-            if ($this->request->domainTest(["lunamontilla.net","localhost"])) {
-                $cookies->setConfig([
-                    "secure" => false
-                ]);
-            }
 
             $session->set("auth");
             $auth = $session->get("auth");
@@ -113,14 +119,25 @@ class DLUser extends DLConfig {
 
             $A0110 = $cookies->set("A0110", $this->hashPassword);
             $B0110 = $cookies->set("B0110", $this->hashPassword);
+        }
+        
+        /** 
+         * Si la comprobación de la contraseña es válida se procederá
+         * a actualizar el token del usuario.
+         */
+        if ($A0110 && $B0110) {
+            $stmt = $this->pdo->prepare("UPDATE dl_user SET hash = :token WHERE user_username = :username");
+            
+            $this->setHash($A0110 . $B0110);
 
-            echo "\n" . json_encode($A0110) . " " . json_encode($B0110);
+            
+            echo "Comprobar datos: " . $this->hashPassword . "\n";
         }
 
         return $A0110 && $B0110;
     }
 
-    public function update(): bool {
+    public function updatePassword(): bool {
         /**
          * @var array Campos del formulario.
          */
@@ -133,7 +150,6 @@ class DLUser extends DLConfig {
 
         if (!$this->request->post($update)) return false;
 
-
         /**
          * @var array Credenciales de usuarios
          */
@@ -143,6 +159,12 @@ class DLUser extends DLConfig {
 
         /** @var object */
         $credentials = (object) $values;
+
+        /** 
+         * La contraseña no se actualizará si de forma explícita
+         * no se indica que se va a realizar dicha acción.
+         */
+        if ($credentials->actions !== "update" ) return false;
 
         if (array_key_exists("password", $values)) {
             $this->setHash($credentials->password);
