@@ -1,4 +1,4 @@
-# Sistema contable
+# Sistema de pedidos en línea
 
 ## Instalación del proyecto.
 
