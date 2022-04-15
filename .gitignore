@@ -7,3 +7,5 @@ Herramientas
 .backup
 app/DLTools.backup/
 logs
+
+.env
